@@ -6,7 +6,7 @@ import cartEmptyImg from '../assets/img/empty-cart.png';
 const CartEmpty = () => {
   return (
     <>
-      <div class="cart cart--empty">
+      <div class="cart cart__empty">
         <h2>
           Корзина пустая <span>😕</span>
         </h2>
