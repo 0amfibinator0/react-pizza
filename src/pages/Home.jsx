@@ -1,7 +1,7 @@
 import React from 'react';
 import qs from 'qs';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -9,7 +9,12 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/index';
 import { list } from '../components/Sort';
-import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import {
+  selectFilter,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
@@ -91,7 +96,11 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj) => (
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link> 
+  ));
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
@@ -102,7 +111,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (
-        <div className='content__error-info'>
+        <div className="content__error-info">
           <h2>Произошла ошибка</h2>
           <p>Не удалось получить пиццы. Попробуйте повторить попытку позже</p>
         </div>
